@@ -29,21 +29,14 @@ planilha = pd.read_csv("produtos.csv")
 #CADASTRANDO PRODUTOS
 for linha in planilha.index: #ou seja, para cada linha das linhas da planilha
     py.click(x=800, y=385) #clicando no campo "Código do Produto"
-    py.write(str(planilha.loc[linha, "codigo"])) #escrevendo o código do produto
-    py.press("tab")
-    py.write(str(planilha.loc[linha, "marca"])) #escrevendo a marca do produto
-    py.press("tab") 
-    py.write(str(planilha.loc[linha, "tipo"])) #escrevendo o tipo do produto
-    py.press("tab") 
-    py.write(str(planilha.loc[linha, "categoria"])) #escrevendo a categoria do produto
-    py.press("tab") 
-    py.write(str(planilha.loc[linha, "preco_unitario"])) #escrevendo o preço do produto
-    py.press("tab") 
-    py.write(str(planilha.loc[linha, "custo"])) #escrevendo o custo do produto
-    py.press("tab") 
 
-    if not pd.isna(planilha.loc[linha, "obs"]): #se a coluna "obs" não estivar vazia, escrever a observação
-        py.write(str(planilha.loc[linha, "obs"])) #escrevendo a observação do produto
+    for coluna in planilha.columns:
+        if coluna == "obs":
+            if not pd.isna(planilha.loc[linha, "obs"]): #se a coluna "obs" não estivar vazia, escrever a observação
+                py.write(str(planilha.loc[linha, "obs"])) #escrevendo a observação do produto
+        else:
+            py.write(str(planilha.loc[linha, coluna])) 
+            py.press("tab")
 
     py.press("enter") #submetendo os dados do produto (apertando o botão de envio)
 
